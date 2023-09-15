@@ -47,7 +47,7 @@ public class BaseDriver {
         WebElement inputPassword = driver.findElement(By.id("Password"));
         inputPassword.sendKeys("Team14.");
 
-        WebElement loginBtn = driver.findElement(By.className("button-1 login-button"));
+        WebElement loginBtn = driver.findElement(By.xpath("//button[@class='button-1 login-button']"));
         loginBtn.click();
 
     }
