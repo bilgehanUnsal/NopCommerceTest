@@ -1,6 +1,7 @@
 package Utility;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,6 +21,7 @@ public class BaseDriver {
 
     public static WebDriver driver; // SingletonDriver method
     public static WebDriverWait wait;
+    public static JavascriptExecutor js;
 
     @BeforeClass
     public void baslangicIslemleri(){
@@ -38,10 +40,11 @@ public class BaseDriver {
     public void loginTesti(){
         driver.get("https://demo.nopcommerce.com/");
         MyFunc.Bekle(2);
+        js = (JavascriptExecutor) driver;
 
         WebElement loginButton = driver.findElement(By.linkText("Log in"));
         wait.until(ExpectedConditions.elementToBeClickable(loginButton));
-        loginButton.click();
+        js.executeScript("arguments[0].click();", loginButton);
 
         WebElement inputMail = driver.findElement(By.id("Email"));
         wait.until(ExpectedConditions.elementToBeClickable(inputMail));
@@ -53,7 +56,7 @@ public class BaseDriver {
 
         WebElement loginBtn = driver.findElement(By.xpath("//button[@class='button-1 login-button']"));
         wait.until(ExpectedConditions.elementToBeClickable(loginBtn));
-        loginBtn.click();
+        js.executeScript("arguments[0].click();", loginBtn);
 
     }
 
