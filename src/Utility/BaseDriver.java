@@ -5,7 +5,10 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -22,6 +25,7 @@ public class BaseDriver {
     public static WebDriver driver; // SingletonDriver method
     public static WebDriverWait wait;
     public static JavascriptExecutor js;
+    public static Actions aksiyonlar;
 
     @BeforeClass
     public void baslangicIslemleri(){
@@ -34,30 +38,37 @@ public class BaseDriver {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
-        loginTesti();
-    }
-
-    public void loginTesti(){
         driver.get("https://demo.nopcommerce.com/");
         MyFunc.Bekle(2);
         js = (JavascriptExecutor) driver;
+        aksiyonlar = new Actions(driver);
+    }
 
-        WebElement loginButton = driver.findElement(By.linkText("Log in"));
-        wait.until(ExpectedConditions.elementToBeClickable(loginButton));
-        js.executeScript("arguments[0].click();", loginButton);
+    public void scrollToElement(WebElement element){
+        js.executeScript("arguments[0].scrollIntoView();", element);
+    }
 
-        WebElement inputMail = driver.findElement(By.id("Email"));
-        wait.until(ExpectedConditions.elementToBeClickable(inputMail));
-        inputMail.sendKeys("team14@gmail.com");
+    public void myClick(WebElement element){
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        scrollToElement(element);
+        js.executeScript("arguments[0].click();", element);
+    }
 
-        WebElement inputPassword = driver.findElement(By.id("Password"));
-        wait.until(ExpectedConditions.elementToBeClickable(inputPassword));
-        inputPassword.sendKeys("Team14.");
+    public void mySendKeys(WebElement element, String yazi){
+        wait.until(ExpectedConditions.visibilityOf(element));
+        scrollToElement(element);
+        element.clear();
+        element.sendKeys(yazi);
+    }
 
-        WebElement loginBtn = driver.findElement(By.xpath("//button[@class='button-1 login-button']"));
-        wait.until(ExpectedConditions.elementToBeClickable(loginBtn));
-        js.executeScript("arguments[0].click();", loginBtn);
+    public void mySelectClass(WebElement element, String text){
+        Select ddMenu = new Select(element);
+        ddMenu.selectByVisibleText(text);
+    }
 
+    public void verifyContainsText(WebElement element, String value){
+        wait.until(ExpectedConditions.visibilityOf(element));
+        Assert.assertTrue(element.getText().toLowerCase().contains(value.toLowerCase()));
     }
 
     @AfterClass
