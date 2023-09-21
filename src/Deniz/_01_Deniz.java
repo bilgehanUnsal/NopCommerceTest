@@ -11,6 +11,7 @@ public class _01_Deniz extends BaseDriver {
 
     @Test(groups = {"UI Testing" , "TAB Menu"})
     public void us04(){
+        // Tab Menü Kontrolü
         Elements el = new Elements();
 
         Actions aksiyonlar=new Actions(driver);
