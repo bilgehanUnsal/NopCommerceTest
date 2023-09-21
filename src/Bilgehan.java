@@ -1,4 +1,7 @@
 import Utility.BaseDriver;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class Bilgehan extends BaseDriver {
@@ -62,5 +65,72 @@ public class Bilgehan extends BaseDriver {
         myClick(lc.computerAdd);
 
         verifyContainsText(lc.verifyComputer, "shopping cart");
+    }
+
+    @Test(groups = {"UI Testing", "TAB Menu"})
+    public void TabMenu(){
+        Locators lc = new Locators();
+
+        aksiyonlar.moveToElement(lc.Computer).build().perform();
+        myClick(lc.Desk);
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+
+        aksiyonlar.moveToElement(lc.Computer).build().perform();
+        myClick(lc.NoteBook);
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+
+        aksiyonlar.moveToElement(lc.Computer).build().perform();
+        myClick(lc.Soft);
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+
+        aksiyonlar.moveToElement(lc.Electronics).build().perform();
+        myClick(lc.Camera);
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+
+        aksiyonlar.moveToElement(lc.Electronics).build().perform();
+        myClick(lc.phone);
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+
+        aksiyonlar.moveToElement(lc.Electronics).build().perform();
+        myClick(lc.others);
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+
+        aksiyonlar.moveToElement(lc.App).build().perform();
+        myClick(lc.Shoes);
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+
+        aksiyonlar.moveToElement(lc.App).build().perform();
+        myClick(lc.Clot);
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+
+        aksiyonlar.moveToElement(lc.App).build().perform();
+        myClick(lc.Acces);
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+
+        lc.Digital.click();
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+
+        lc.book.click();
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+
+        lc.jewe.click();
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+
+        lc.giftcard.click();
+        wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
+    }
+
+    public class _US_07_Search01_Main extends BaseDriver {
+
+        @Test
+        @Parameters("searchText")
+        public void ParametersSearch(String arananKelime){
+            Locators lc = new Locators();
+
+            mySendKeys(lc.searchStore, arananKelime);
+            myClick(lc.searchButton);
+
+            verifyContainsText(lc.adobeVerify, "Adobe Photoshop CS4");
+        }
     }
 }
