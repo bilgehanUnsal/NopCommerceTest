@@ -111,9 +111,4 @@ public class Locators {
     @FindBy(xpath = "//p[@class='content']/a")
     public WebElement verifyComputer;
 
-
-
-
-
-
 }
