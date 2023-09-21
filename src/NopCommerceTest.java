@@ -1,13 +1,13 @@
 import Utility.BaseDriver;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class Bilgehan extends BaseDriver {
+public class NopCommerceTest extends BaseDriver {
 
-    @Test(groups = {"UserRegistiration" , "Smoke"})
-    public void Register(){
+    @Test(groups = {"UserRegistiration", "Smoke"})
+    public void Register() {
         Locators lc = new Locators();
 
         myClick(lc.register);
@@ -24,8 +24,8 @@ public class Bilgehan extends BaseDriver {
         verifyContainsText(lc.registerApplied, "Your registration completed");
     }
 
-    @Test (groups = {"LoginTest", "Smoke"})
-    public void Login(){
+    @Test(groups = {"LoginTest", "Smoke"})
+    public void Login() {
         Locators lc = new Locators();
 
         myClick(lc.loginButton);
@@ -37,7 +37,7 @@ public class Bilgehan extends BaseDriver {
     }
 
     @Test(groups = {"UI Testing", "TAB Menu", "Sipariş Testleri"})
-    public void GiftTest(){
+    public void GiftTest() {
         Locators lc = new Locators();
 
         myClick(lc.gift);
@@ -51,7 +51,7 @@ public class Bilgehan extends BaseDriver {
     }
 
     @Test(groups = {"UI Testing", "TAB Menu", "Sipariş Testleri"})
-    public void BuyingComputer(){
+    public void BuyingComputer() {
         Locators lc = new Locators();
 
         aksiyonlar.moveToElement(lc.computers).build().perform();
@@ -68,7 +68,7 @@ public class Bilgehan extends BaseDriver {
     }
 
     @Test(groups = {"UI Testing", "TAB Menu"})
-    public void TabMenu(){
+    public void TabMenu() {
         Locators lc = new Locators();
 
         aksiyonlar.moveToElement(lc.Computer).build().perform();
@@ -119,18 +119,41 @@ public class Bilgehan extends BaseDriver {
         lc.giftcard.click();
         wait.until(ExpectedConditions.visibilityOf(lc.dogrulama));
     }
+    @Test (groups = {"UI Testing", "Search", "Smoke", "Regression"})
+    @Parameters("searchText")
+    public void ParametersSearch(String arananKelime) {
+        Locators lc = new Locators();
 
-    public class _US_07_Search01_Main extends BaseDriver {
+        mySendKeys(lc.searchStore, arananKelime);
+        myClick(lc.searchButton);
 
-        @Test
-        @Parameters("searchText")
-        public void ParametersSearch(String arananKelime){
-            Locators lc = new Locators();
+        verifyContainsText(lc.adobeVerify, "Adobe Photoshop CS4");
+    }
+    @Test(groups = {"Smoke Test"}, dataProvider = "UserData")
+    public void hataliGirisTest(String mail, String password) {
 
-            mySendKeys(lc.searchStore, arananKelime);
-            myClick(lc.searchButton);
+        Locators lc = new Locators();
 
-            verifyContainsText(lc.adobeVerify, "Adobe Photoshop CS4");
-        }
+        myClick(lc.loginButton);
+        mySendKeys(lc.logInMail, mail);
+        mySendKeys(lc.logInPassword, password);
+
+        verifyContainsText(lc.unSucLogIn, "No customer account found");
+
+    }
+
+    @DataProvider
+    public Object[][] UserData() {
+        Object[][] data = {
+                {"bushra@gmail.com", "11111"},
+                {"tamella@gmail.com", "11111"},
+                {"bilgehan@gmail.com", "11111"},
+                {"deniz@gmail.com", "11111"},
+                {"bilal@gmail.com", "11111"},
+                {"hakan@gmail.com", "11111"},
+                {"bigteam14@gmail.com", "BigTeam14."}
+        };
+        return data;
+
     }
 }
