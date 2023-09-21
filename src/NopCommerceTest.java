@@ -23,7 +23,7 @@ public class NopCommerceTest extends BaseDriver {
         mySelectClass(lc.birthDay, "17");
         mySelectClass(lc.birthMonth, "August");
         mySelectClass(lc.birthYear, "1994");
-        mySendKeys(lc.emailInput, "teteam14@gmail.com");
+        mySendKeys(lc.emailInput, "testeam14@gmail.com");
         mySendKeys(lc.passwordInput, "BigTeam14.");
         mySendKeys(lc.conPassInput, "BigTeam14.");
         myClick(lc.registerButton);
@@ -35,7 +35,7 @@ public class NopCommerceTest extends BaseDriver {
         Locators lc = new Locators();
 
         myClick(lc.loginButton);
-        mySendKeys(lc.logInMail, "teteam14@gmail.com");
+        mySendKeys(lc.logInMail, "testeam14@gmail.com");
         mySendKeys(lc.logInPassword, "BigTeam14.");
         myClick(lc.getLogIn);
 
@@ -163,7 +163,7 @@ public class NopCommerceTest extends BaseDriver {
                 {"deniz@gmail.com", "11111"},
                 {"bilal@gmail.com", "11111"},
                 {"hakan@gmail.com", "11111"},
-                {"teteam14@gmail.com", "BigTeam14."}
+                {"testeam14@gmail.com", "BigTeam14."}
         };
         return data;
 
